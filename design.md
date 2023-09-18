@@ -8,3 +8,7 @@ The code that will be executed when this block is called is dependent on the exa
 turn [angle] [speed]
 
 The turn block will take two inputs, angle and speed, which is the angle at which the RC Car will turn and the speed of the turn. Perhaps we can overload this function to take in an enum [left, right, forward, backward] and a speed that will automatically input the angle for simplicity.
+
+# Shape [numSides] [side length] [speed]
+
+If we are able to implement accurate turn angles, implementations of regular shapes would directly follow. At the beginning of this block, there would be a calculation for the interior angle of the regular shape. The RC Car would then trace that shape, turning at that angle every segment. 
