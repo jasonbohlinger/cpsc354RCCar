@@ -1,7 +1,7 @@
 # cpsc354RCCar
 # Group Members: Jason Bohlinger | Ori Garibi | Liam Propst | Miles Rovenger
 
-TODO: Short motivation and description of the project.
+The goal of this project will be to drive an RC car remotely using block-based code. The user interface will be Blockly's block-based code, which is a visual editor that compiles the blocks created by the user. The plan is to adapt the code into Arduino C to control the car, but if this proves to be difficult to implement changes may always be made. The motivation behind this project is to create a way to interact with the controls of the car directly without prior knowledge of Arduino C.
 
 This project, by using the Blockly API, directly applies to the topics of parsing, interpretation, and compilation. 
 Blocks will be dragged/dropped around a user-friendly GUI to control the RC Car. 
