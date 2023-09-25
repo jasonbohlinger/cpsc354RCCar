@@ -4,7 +4,6 @@ Each motor is attached to their own individual pin on the Arduino board, and are
 
 ## Stop [time]
 
-    delayTime = time / currSpeed
     while (timer < time)
         Iterate over each motor
             if (currSpeed > 0)
