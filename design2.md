@@ -4,18 +4,15 @@ Each motor is attached to their own individual pin on the Arduino board, and are
 
 ## Stop [time]
 
-    Iterate over each motor
-        delayTime = time / currSpeed
-        if (currSpeed > 0)
-            while (currSpeed >= 0)
+    delayTime = time / currSpeed
+    while (timer < time)
+        Iterate over each motor
+            if (currSpeed > 0)
                 --currSpeed
-                Set each motor's speed to currSpeed
-                delay (delayTime)
-        else
-            while (currSpeed <= 0)
+                Set the motor's speed to currSpeed
+            else
                 ++currSpeed
-                Set each motor's speed to currSpeed
-                delay (delayTime)
+                Set the motor's speed to currSpeed
 
 ## Forward [speed] [time]
 
