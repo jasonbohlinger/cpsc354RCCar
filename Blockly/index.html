@@ -31,7 +31,7 @@
 
     #blocklyDiv {
       float: bottom;
-      height: 90%;
+      height: 50%;
       width: 100%;
     }
   </style>
@@ -63,6 +63,22 @@
 
     </category>
   </xml>
+
+  <div class="row button-row">
+    <button onclick="generateCode()">Generate JavaScript</button>
+    <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
+  </div>
+  <div class="row">
+      <div id="codeDiv" class="half-width"></div>
+      <div id="outputDiv" class="half-width"></div>
+  </div>
+
+  <script>
+    function generateCode() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        document.getElementById('codeDiv').innerText = code;
+    }
+  </script>
 </body>
 </html>
 

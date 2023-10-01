@@ -26,13 +26,6 @@ Blockly.Blocks['move'] = {
   }
 };
 
-// move code generation
-// Blockly.JavaScript['move'] = function(block) {   
-//   var distance = block.getFieldValue('DISTANCE');   
-//   var code = 'moveCarForward(' + distance + ');\n';   
-//   return code; 
-// };
-
 
 Blockly.Blocks['turn'] = {
   init: function() {
@@ -45,6 +38,23 @@ Blockly.Blocks['turn'] = {
     this.setTooltip("Turns the car left or right.");
   }
 };
+
+Blockly.JavaScript.forBlock['move'] = function(block) {
+  var distance = block.getFieldValue('DISTANCE');
+  var code = 'forward(' + distance * 5 + ')\n';
+  return code;
+}
+
+Blockly.JavaScript.forBlock['turn'] = function(block) {
+  var direction = block.getFieldValue('DIRECTION');
+  var code;
+  if (direction == 'LEFT') {
+    code = 'left(90)\n';
+  } else {
+    code = 'right(90)\n';
+  }
+  return code;
+}
 
 function start() {
   // Create main workspace.
