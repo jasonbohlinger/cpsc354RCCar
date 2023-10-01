@@ -45,11 +45,22 @@
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
     <toolboxlabel name="Custom Toolbox" colour="darkslategrey"></toolboxlabel>
     
+    
   
     <category name="Movement" categorystyle="math_category">
-      <block type="math_number" gap="32">
-        <field name="NUM">123</field>
+
+      
+      <block type="run"></block>
+
+      <block type="move"> 
+        <field name="DISTANCE">10</field>
       </block>
+
+      <block type="turn">
+            <field name="DIRECTION"></field> 
+      </block>
+
+
     </category>
   </xml>
 </body>
