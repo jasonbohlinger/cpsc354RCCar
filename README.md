@@ -10,4 +10,4 @@ This C code will then be compiled into a file that will be loaded onto the hardw
 By using the Blockly API and generating C code as a middle-man step in controlling the RC Car, it allows users to easily control the car without needing the knowledge of a programming language like C.
 
 # Our Blockly Website:
-[jasonbohlinger.github.io](https://jasonbohlinger.github.io)
+[jasonbohlinger.github.io](https://jasonbohlinger.github.io/cpsc354RCCar/Blockly/)
