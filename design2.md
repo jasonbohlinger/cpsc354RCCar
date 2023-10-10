@@ -46,4 +46,4 @@ Each motor is attached to their own individual pin on the Arduino board, and are
 
 # Simulator Software
 
-It is possible to build a simulator for our Car by plotting a point on an x,y cartesian plane and moving it around according to the movements specified by the block code. This can be built using the "turtle" library, specified [here](https://w3.cs.jmu.edu/lam2mo/cs240_2015_08/turtle.html) by James Madison Universiy, 2015. The turtle could be used to mimic the car and move at certain rates in certain directions.
+It is possible to build a simulator for our Car by plotting a point on an x,y cartesian plane and moving it around according to the movements specified by the block code. This can be built using the "turtle" library, specified [here](https://docs.python.org/3/library/turtle.html) using Python as the base language. The turtle could be used to mimic the car and move at certain rates in certain directions.
