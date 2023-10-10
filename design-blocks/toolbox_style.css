@@ -29,4 +29,28 @@
 .row {
   width: 500;
   height: 500;
+  white-space: pre;
+}
+
+.codeDiv {
+  position: absolute;
+  border: none;
+  padding: 5px;
+  width: 200px;
+  height: 350px;
+  overflow: scroll;
+  bottom: 0;
+  transform: translateX(300px);
+  white-space: pre;
+}
+.outputDiv {
+  position: absolute;
+  border: none;
+  padding: 5px;
+  width: 200px;
+  height: 350px;
+  overflow: scroll;
+  bottom: 0;
+  right: 0;
+  white-space: pre;
 }

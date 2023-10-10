@@ -4,9 +4,12 @@ let workspace = null;
 
 Blockly.Blocks['run'] = {
   init: function() {
+    this.appendDummyInput()
+        .appendField("Loop")
+        .appendField(new Blockly.FieldNumber(10, 1), "ITERATIONS")
+        .appendField("times");
     this.appendStatementInput("COMMAND")
         .setCheck(["MOVE", "TURN"])
-        .appendField("run");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(65);
@@ -39,9 +42,22 @@ Blockly.Blocks['turn'] = {
   }
 };
 
+Blockly.JavaScript.forBlock['run'] = function(block) {
+  var iterations = block.getFieldValue('ITERATIONS');
+  var body = Blockly.JavaScript.statementToCode(block, 'COMMAND');
+
+  var code = '' 
+  code += 'for i in range(' + iterations + '):\n';
+  code += body.split('\n').map(function(line) {
+    return '    ' + line;
+  }).join('\n') + '\n';
+
+  
+  return code
+}
 Blockly.JavaScript.forBlock['move'] = function(block) {
   var distance = block.getFieldValue('DISTANCE');
-  var code = 'forward(' + distance * 5 + ')\n';
+  var code = 't.forward(' + distance * 5 + ')\n';
   return code;
 }
 
@@ -49,9 +65,9 @@ Blockly.JavaScript.forBlock['turn'] = function(block) {
   var direction = block.getFieldValue('DIRECTION');
   var code;
   if (direction == 'LEFT') {
-    code = 'left(90)\n';
+    code = 't.left(90)\n';
   } else {
-    code = 'right(90)\n';
+    code = 't.right(90)\n';
   }
   return code;
 }

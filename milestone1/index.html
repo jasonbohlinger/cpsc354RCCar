@@ -50,7 +50,9 @@
     <category name="Movement" categorystyle="math_category">
 
       
-      <block type="run"></block>
+      <block type="run">
+        <field name="ITERATIONS">1</field>
+      </block>
 
       <block type="move"> 
         <field name="DISTANCE">10</field>
@@ -65,18 +67,42 @@
   </xml>
 
   <div class="row button-row">
-    <button onclick="generateCode()">Generate JavaScript</button>
+    <button onclick="generateCode()">Generate Python</button>
+    <button onclick="generateFile()">Generate Python Script</button>
+    <button id="saveButton" onclick="saveCode()">Save to code</button>
     <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
+    
   </div>
   <div class="row">
-      <div id="codeDiv" class="half-width"></div>
-      <div id="outputDiv" class="half-width"></div>
+      <div id="codeDiv" class="codeDiv"></div>
+      <div id="outputDiv" class="outputDiv"></div>
   </div>
 
   <script>
     function generateCode() {
         var code = Blockly.JavaScript.workspaceToCode(workspace);
         document.getElementById('codeDiv').innerText = code;
+    }
+
+    function generateFile() {
+      var code = document.getElementById('codeDiv').innerText;
+      document.getElementById('outputDiv').innerText = `import turtle as t\n${code}\nt.mainloop()\n`;
+    }
+
+    function saveCode() {
+      document.getElementById('saveButton').addEventListener('click', function() {
+      var contentToSave = document.getElementById('outputDiv').innerText;
+      var blob = new Blob([contentToSave], { type: 'text/x-python' });
+      var fileName = 'turtleScript.py';
+
+      // Create a download link
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = fileName;
+
+      // Trigger a click event on the link to start the download
+      a.click();
+});
     }
   </script>
 </body>
