@@ -19,9 +19,9 @@ Blockly.Blocks['run'] = {
 Blockly.Blocks['move'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("move car forward by")
+        .appendField("move car forward for")
         .appendField(new Blockly.FieldNumber(10, 1), "DISTANCE") // Default value of 10, minimum value of 1.
-        .appendField("units");
+        .appendField("seconds");
     this.setPreviousStatement(true, ["MOVE", "TURN"]);
     this.setNextStatement(true, ["MOVE", "TURN"]);
     this.setColour(120);
@@ -34,7 +34,9 @@ Blockly.Blocks['turn'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("turn car")
-        .appendField(new Blockly.FieldDropdown([["left","LEFT"], ["right","RIGHT"]]), "DIRECTION");
+        .appendField(new Blockly.FieldDropdown([["left","LEFT"], ["right","RIGHT"]]), "DIRECTION")
+        .appendField(new Blockly.FieldNumber(), "DEGREES")
+        .appendField("Degrees");
     this.setPreviousStatement(true, ["MOVE", "TURN"]);
     this.setNextStatement(true, ["MOVE", "TURN"]);
     this.setColour(290);
@@ -57,17 +59,18 @@ Blockly.JavaScript.forBlock['run'] = function(block) {
 }
 Blockly.JavaScript.forBlock['move'] = function(block) {
   var distance = block.getFieldValue('DISTANCE');
-  var code = 't.forward(' + distance * 5 + ')\n';
+  var code = 't.forward(' + distance + ')\n';
   return code;
 }
 
 Blockly.JavaScript.forBlock['turn'] = function(block) {
   var direction = block.getFieldValue('DIRECTION');
+  var degrees = block.getFieldValue('DEGREES')
   var code;
   if (direction == 'LEFT') {
-    code = 't.left(90)\n';
+    code = 't.left(' + degrees + ')\n';
   } else {
-    code = 't.right(90)\n';
+    code = 't.right(' + degrees + ')\n';
   }
   return code;
 }
