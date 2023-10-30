@@ -10,4 +10,20 @@ This C code will then be compiled into a file that will be loaded onto the hardw
 By using the Blockly API and generating C code as a middle-man step in controlling the RC Car, it allows users to easily control the car without needing the knowledge of a programming language like C.
 
 # Our Blockly Website:
-[jasonbohlinger.github.io](https://jasonbohlinger.github.io/cpsc354RCCar/design-blocks/)
+[jasonbohlinger.github.io](https://jasonbohlinger.github.io/cpsc354RCCar/src/design-blocks/)
+
+# Running / Testing
+
+1. Open index.html in a browser
+2. Move blocks to fit your program specifications
+3. Select 'Generate Python'
+4. Select 'Generate Python Script'
+5. Select 'Save to code' to start downloading turtleScript.py, the python executable script
+
+## Running Python Script (from terminal)
+
+    pip install tk
+This will install the tkinter module which turtle runs on top of.
+    
+    python turtleScript.py
+This will open a new window with your turtle. It will move and draw lines on top of where it moves, and the window will stay open until you close it.
