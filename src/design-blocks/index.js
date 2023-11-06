@@ -75,6 +75,23 @@ Blockly.JavaScript.forBlock['turn'] = function(block) {
   return code;
 }
 
+// Here is a block to potentially stop the car from moving.
+Blockly.Blocks['stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("stop car");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(0);
+    this.setTooltip("Stops the car.");
+  }
+};
+Blockly.JavaScript.forBlock['stop'] = function(block) {
+  var code = 't.stop()\n';
+  return code;
+}
+
+
 function start() {
   // Create main workspace.
   workspace = Blockly.inject('blocklyDiv',
