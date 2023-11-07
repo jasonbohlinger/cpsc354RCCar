@@ -44,6 +44,30 @@ Blockly.Blocks['turn'] = {
   }
 };
 
+Blockly.Blocks['pause'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("pause for")
+        .appendField(new Blockly.FieldNumber(1, 0), "DURATION")
+        .appendField("seconds");
+    this.setPreviousStatement(true, ["MOVE", "TURN", "STOP"]); // Adjust depending on allowable previous statements
+    this.setNextStatement(true, ["MOVE", "TURN", "STOP"]); // Adjust depending on allowable next statements
+    this.setColour(160);
+    this.setTooltip("Pauses the car for a certain amount of time.");
+  }
+};
+
+Blockly.Blocks['stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("stop car");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(0);
+    this.setTooltip("Stops the car.");
+  }
+};
+
 Blockly.JavaScript.forBlock['run'] = function(block) {
   var iterations = block.getFieldValue('ITERATIONS');
   var body = Blockly.JavaScript.statementToCode(block, 'COMMAND');
@@ -75,21 +99,16 @@ Blockly.JavaScript.forBlock['turn'] = function(block) {
   return code;
 }
 
-// Here is a block to potentially stop the car from moving.
-Blockly.Blocks['stop'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("stop car");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(0);
-    this.setTooltip("Stops the car.");
-  }
-};
 Blockly.JavaScript.forBlock['stop'] = function(block) {
   var code = 't.stop()\n';
   return code;
 }
+
+Blockly.JavaScript.forBlock['pause'] = function(block) {
+  var duration = block.getFieldValue('DURATION');
+  var code = 'time.sleep(' + duration + ')\n';
+  return code;
+};
 
 
 function start() {
