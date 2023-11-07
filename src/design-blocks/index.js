@@ -57,6 +57,17 @@ Blockly.Blocks['pause'] = {
   }
 };
 
+Blockly.Blocks['stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("stop car");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(0);
+    this.setTooltip("Stops the car.");
+  }
+};
+
 Blockly.JavaScript.forBlock['run'] = function(block) {
   var iterations = block.getFieldValue('ITERATIONS');
   var body = Blockly.JavaScript.statementToCode(block, 'COMMAND');
@@ -88,7 +99,12 @@ Blockly.JavaScript.forBlock['turn'] = function(block) {
   return code;
 }
 
-Blockly.JavaScript['pause'] = function(block) {
+Blockly.JavaScript.forBlock['stop'] = function(block) {
+  var code = 't.stop()\n';
+  return code;
+}
+
+Blockly.JavaScript.forBlock['pause'] = function(block) {
   var duration = block.getFieldValue('DURATION');
   var code = 'time.sleep(' + duration + ')\n';
   return code;
