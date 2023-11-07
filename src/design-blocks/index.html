@@ -61,7 +61,12 @@
       <block type="turn">
             <field name="DIRECTION"></field> 
       </block>
-
+      
+      <block type="stop"></block>
+      
+      <block type="pause">
+             <field name="PAUSE">1</field>
+      </block>
 
     </category>
   </xml>
@@ -86,7 +91,7 @@
 
     function generateFile() {
       var code = document.getElementById('codeDiv').innerText;
-      document.getElementById('outputDiv').innerText = `import turtle as t\n${code}\nt.mainloop()\n`;
+      document.getElementById('outputDiv').innerText = `import turtle as t\nimport time\n\n${code}\nt.mainloop()\n`;
     }
 
     function saveCode() {
