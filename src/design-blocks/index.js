@@ -16,7 +16,7 @@ Blockly.Blocks['run'] = {
     this.setTooltip("Runs a command.");
   }
 };
-Blockly.Blocks['move'] = {
+Blockly.Blocks['move_forward'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Move forward for ")
@@ -26,6 +26,19 @@ Blockly.Blocks['move'] = {
     this.setNextStatement(true, null);
     this.setColour(120);
     this.setTooltip("Moves the car forward by a specified distance.");
+  }
+};
+
+Blockly.Blocks['move_backward'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Move backward for ")
+        .appendField(new Blockly.FieldNumber(10, 1), "TIME") // Default value of 10, minimum value of 1.
+        .appendField("seconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+    this.setTooltip("Moves the car backward by a specified distance.");
   }
 };
 
@@ -93,9 +106,15 @@ Blockly.JavaScript.forBlock['run'] = function(block) {
   
   return code
 }
-Blockly.JavaScript.forBlock['move'] = function(block) {
-  var distance = block.getFieldValue('TIME');
-  var code = 't.forward(' + distance + ')\n';
+Blockly.JavaScript.forBlock['move_forward'] = function(block) {
+  var time = block.getFieldValue('TIME');
+  var code = 't.forward(' + time + ')\n';
+  return code;
+}
+
+Blockly.JavaScript.forBlock['move_backward'] = function(block) {
+  var time = block.getFieldValue('TIME');
+  var code = 't.backward(' + time+ ')\n';
   return code;
 }
 
