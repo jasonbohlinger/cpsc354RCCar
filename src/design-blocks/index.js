@@ -29,6 +29,18 @@ Blockly.Blocks['move'] = {
   }
 };
 
+Blockly.Blocks['speed'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("set speed of the car (turtle)")
+        .appendField(new Blockly.FieldNumber(6, 1, 10), "SPEED") // Default value of 10, minimum value of 1.
+    this.setPreviousStatement(true, ["MOVE", "TURN"]);
+    this.setNextStatement(true, ["MOVE", "TURN"]);
+    this.setColour(320);
+    this.setTooltip("Sets the speed of the car (turtle).");
+  }
+};
+
 
 Blockly.Blocks['turn'] = {
   init: function() {
@@ -84,6 +96,12 @@ Blockly.JavaScript.forBlock['run'] = function(block) {
 Blockly.JavaScript.forBlock['move'] = function(block) {
   var distance = block.getFieldValue('DISTANCE');
   var code = 't.forward(' + distance + ')\n';
+  return code;
+}
+
+Blockly.JavaScript.forBlock['speed'] = function(block) {
+  var speed = block.getFieldValue('SPEED');
+  var code = 't.speed(' + speed + ')\n';
   return code;
 }
 
