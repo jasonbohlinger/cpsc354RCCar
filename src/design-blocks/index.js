@@ -9,7 +9,7 @@ Blockly.Blocks['run'] = {
         .appendField(new Blockly.FieldNumber(10, 1), "ITERATIONS")
         .appendField("times");
     this.appendStatementInput("COMMAND")
-        .setCheck(["MOVE", "TURN"])
+        .setCheck(["move", "turn"])
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(65);
@@ -19,11 +19,11 @@ Blockly.Blocks['run'] = {
 Blockly.Blocks['move'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("move car forward for")
-        .appendField(new Blockly.FieldNumber(10, 1), "DISTANCE") // Default value of 10, minimum value of 1.
+        .appendField("Move forward for ")
+        .appendField(new Blockly.FieldNumber(10, 1), "TIME") // Default value of 10, minimum value of 1.
         .appendField("seconds");
-    this.setPreviousStatement(true, ["MOVE", "TURN"]);
-    this.setNextStatement(true, ["MOVE", "TURN"]);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(120);
     this.setTooltip("Moves the car forward by a specified distance.");
   }
@@ -32,10 +32,10 @@ Blockly.Blocks['move'] = {
 Blockly.Blocks['speed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("set speed of the car (turtle)")
-        .appendField(new Blockly.FieldNumber(6, 1, 10), "SPEED") // Default value of 10, minimum value of 1.
-    this.setPreviousStatement(true, ["MOVE", "TURN"]);
-    this.setNextStatement(true, ["MOVE", "TURN"]);
+        .appendField("set speed (1-10): ")
+        .appendField(new Blockly.FieldNumber(5, 1, 10), "SPEED") // Default value of 5, minimum value of 1, maximum of 10
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(320);
     this.setTooltip("Sets the speed of the car (turtle).");
   }
@@ -49,8 +49,8 @@ Blockly.Blocks['turn'] = {
         .appendField(new Blockly.FieldDropdown([["left","LEFT"], ["right","RIGHT"]]), "DIRECTION")
         .appendField(new Blockly.FieldNumber(), "DEGREES")
         .appendField("Degrees");
-    this.setPreviousStatement(true, ["MOVE", "TURN"]);
-    this.setNextStatement(true, ["MOVE", "TURN"]);
+    this.setPreviousStatement(true, ["move", "turn"]);
+    this.setNextStatement(true, ["move", "turn"]);
     this.setColour(290);
     this.setTooltip("Turns the car left or right.");
   }
@@ -62,8 +62,8 @@ Blockly.Blocks['pause'] = {
         .appendField("pause for")
         .appendField(new Blockly.FieldNumber(1, 0), "DURATION")
         .appendField("seconds");
-    this.setPreviousStatement(true, ["MOVE", "TURN", "STOP"]); // Adjust depending on allowable previous statements
-    this.setNextStatement(true, ["MOVE", "TURN", "STOP"]); // Adjust depending on allowable next statements
+    this.setPreviousStatement(true, null); // Adjust depending on allowable previous statements
+    this.setNextStatement(true, null); // Adjust depending on allowable next statements
     this.setColour(160);
     this.setTooltip("Pauses the car for a certain amount of time.");
   }
@@ -94,7 +94,7 @@ Blockly.JavaScript.forBlock['run'] = function(block) {
   return code
 }
 Blockly.JavaScript.forBlock['move'] = function(block) {
-  var distance = block.getFieldValue('DISTANCE');
+  var distance = block.getFieldValue('TIME');
   var code = 't.forward(' + distance + ')\n';
   return code;
 }
