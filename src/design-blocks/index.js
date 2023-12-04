@@ -44,7 +44,7 @@ Blockly.Blocks['move_backward'] = {
 Blockly.Blocks['speed'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("set speed (1-10): ")
+        .appendField("set speed (1 - 255): ")
         .appendField(new Blockly.FieldNumber(100, 1, 255), "SPEED") // Default value of 5, minimum value of 1, maximum of 10
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
