@@ -36,7 +36,12 @@ void setup() {
 void loop() {
     // Example usage
     moveForward(200, 2); // Move forward at speed 200 for 2 seconds
+    stopMoving(2);
     turnLeft(150, 1);    // Turn left at speed 150 for 1 second
+    stopMoving(2);
+    turnRight(150, 1);   // Turn right at speed 150 for 1 second
+    stopMoving(2);
+    moveBackward(200, 2);// Move backward at speed 200 for 2 seconds
     delay(5000);
     // Add more movements as needed
 }
@@ -46,6 +51,8 @@ void moveForward(uint8_t speed, unsigned long duration) {
     delay(duration * 1000);
     stopMoving(0);
 }
+
+
 
 void moveBackward(uint8_t speed, unsigned long duration) {
     motorControl(direction_back, speed, direction_back, speed, control_enable);
@@ -58,6 +65,7 @@ void turnRight(uint8_t speed, unsigned long duration) {
     delay(duration * 1000);
     stopMoving(0);
 }
+
 
 void turnLeft(uint8_t speed, unsigned long duration) {
     motorControl(direction_just, speed, direction_back, speed, control_enable);
