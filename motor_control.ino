@@ -1,82 +1,95 @@
+#include <Arduino.h>
 
-#define Lpwm_pin  5     //pin of controlling speed---- ENA of motor driver board
-#define Rpwm_pin  6    //pin of controlling speed---- ENB of motor driver board
-int pinLB=2;             //pin of controlling turning---- IN1 of motor driver board
-int pinLF=4;             //pin of controlling turning---- IN2 of motor driver board
-int pinRB=7;            //pin of controlling turning---- IN3 of motor driver board
-int pinRF=8;            //pin of controlling turning---- IN4 of motor driver board
+// Pin Definitions
+#define PIN_Motor_PWMA 5
+#define PIN_Motor_PWMB 6
+#define PIN_Motor_BIN_1 8
+#define PIN_Motor_AIN_1 7
+#define PIN_Motor_STBY 3
 
-void setup()
-{
-  pinMode(pinLB,OUTPUT); // /pin 2
-  pinMode(pinLF,OUTPUT); // pin 4
-  pinMode(pinRB,OUTPUT); // pin 7
-  pinMode(pinRF,OUTPUT);  // pin 8
-  pinMode(Lpwm_pin,OUTPUT);  // pin 5 (PWM) 
-  pinMode(Rpwm_pin,OUTPUT);  // pin 6(PWM)   
+// Motor Directions
+#define direction_just true
+#define direction_back false
+#define direction_void 3
+
+// Enable/Disable Control
+#define control_enable true
+#define control_disable false
+
+// Function Prototypes
+void moveForward(uint8_t speed, unsigned long duration);
+void moveBackward(uint8_t speed, unsigned long duration);
+void turnRight(uint8_t speed, unsigned long duration);
+void turnLeft(uint8_t speed, unsigned long duration);
+void stopMoving(unsigned long duration);
+void motorControl(boolean direction_A, uint8_t speed_A, boolean direction_B, uint8_t speed_B, boolean controlED);
+
+void setup() {
+    // Initialize Motor Pins
+    pinMode(PIN_Motor_PWMA, OUTPUT);
+    pinMode(PIN_Motor_PWMB, OUTPUT);
+    pinMode(PIN_Motor_AIN_1, OUTPUT);
+    pinMode(PIN_Motor_BIN_1, OUTPUT);
+    pinMode(PIN_Motor_STBY, OUTPUT);
 }
 
+void loop() {
+    // Example usage
+    moveForward(200, 2); // Move forward at speed 200 for 2 seconds
+    turnLeft(150, 1);    // Turn left at speed 150 for 1 second
+    delay(5000);
+    // Add more movements as needed
+}
 
-void loop()
-{go_forward(100);
- delay(2000);
- go_backward(100);
- delay(2000);
- rotate_left(150);
- delay(2000);
- rotate_right(150);
- delay(2000);
- stopp();
- delay(2000);
- }
+void moveForward(uint8_t speed, unsigned long duration) {
+    motorControl(direction_just, speed, direction_just, speed, control_enable);
+    delay(duration * 1000);
+    stopMoving(0);
+}
 
+void moveBackward(uint8_t speed, unsigned long duration) {
+    motorControl(direction_back, speed, direction_back, speed, control_enable);
+    delay(duration * 1000);
+    stopMoving(0);
+}
 
-void go_forward(unsigned char speed_val)    // speed_val：0~255
-    {digitalWrite(pinRB,HIGH); 
-     digitalWrite(pinRF,LOW);
-     digitalWrite(pinLB,HIGH);
-     digitalWrite(pinLF,LOW);
-     analogWrite(Lpwm_pin,speed_val);
-     analogWrite(Rpwm_pin,speed_val);
-     
-      
-    }
+void turnRight(uint8_t speed, unsigned long duration) {
+    motorControl(direction_back, speed, direction_just, speed, control_enable);
+    delay(duration * 1000);
+    stopMoving(0);
+}
 
-void go_backward(unsigned char speed_val)    // speed_val：0~255
-    {
-     digitalWrite(pinRB,LOW);  
-     digitalWrite(pinRF,HIGH);
-     digitalWrite(pinLB,LOW);  
-     digitalWrite(pinLF,HIGH);
-     analogWrite(Lpwm_pin,speed_val);
-     analogWrite(Rpwm_pin,speed_val);
+void turnLeft(uint8_t speed, unsigned long duration) {
+    motorControl(direction_just, speed, direction_back, speed, control_enable);
+    delay(duration * 1000);
+    stopMoving(0);
+}
+
+void stopMoving(unsigned long duration) {
+    motorControl(direction_void, 0, direction_void, 0, control_enable);
+    delay(duration * 1000);
+}
+
+void motorControl(boolean direction_A, uint8_t speed_A, boolean direction_B, uint8_t speed_B, boolean controlED) {
+    if (controlED == control_enable) {
+        digitalWrite(PIN_Motor_STBY, HIGH);
+        // Control for Motor A
+        if (direction_A == direction_just) {
+            digitalWrite(PIN_Motor_AIN_1, HIGH);
+        } else if (direction_A == direction_back) {
+            digitalWrite(PIN_Motor_AIN_1, LOW);
+        }
+        analogWrite(PIN_Motor_PWMA, speed_A);
+
+        // Control for Motor B
+        if (direction_B == direction_just) {
+            digitalWrite(PIN_Motor_BIN_1, HIGH);
+        } else if (direction_B == direction_back) {
+            digitalWrite(PIN_Motor_BIN_1, LOW);
+        }
+        analogWrite(PIN_Motor_PWMB, speed_B);
+    } else {
+        digitalWrite(PIN_Motor_STBY, LOW);
     }
-    
-void rotate_left(unsigned char speed_val)        // speed_val：0~255
-    {digitalWrite(pinRB,HIGH);
-     digitalWrite(pinRF,LOW );  
-     digitalWrite(pinLB,LOW); 
-     digitalWrite(pinLF,HIGH);
-     analogWrite(Lpwm_pin,speed_val);
-     analogWrite(Rpwm_pin,speed_val);
-      
-     
-    }
-void rotate_right(unsigned char speed_val)    // speed_val：0~255
-    {
-      digitalWrite(pinRB,LOW);  
-     digitalWrite(pinRF,HIGH);
-     digitalWrite(pinLB,HIGH);
-     digitalWrite(pinLF,LOW);  
-     analogWrite(Lpwm_pin,speed_val);
-     analogWrite(Rpwm_pin,speed_val);
-     
-    }    
-void stopp()        //stop
-    {
-     digitalWrite(pinRB,HIGH);
-     digitalWrite(pinRF,HIGH);
-     digitalWrite(pinLB,HIGH);
-     digitalWrite(pinLF,HIGH);
-    }
+}
 
