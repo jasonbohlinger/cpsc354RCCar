@@ -49,14 +49,13 @@
     <block type="move_backward"></block>
     <block type="speed"> </block>
     <block type="turn"></block>
-    <block type="stop"></block>
     <block type="pause"></block>
   </xml>
 
   <div class="row button-row">
-    <button onclick="generateCode()">Generate Python</button>
-    <button onclick="generateFile()">Generate Python Script</button>
-    <button id="saveButton" onclick="saveCode()">Save to code</button>
+    <button onclick="generateCode()">Generate Pseudocode</button>
+    <button onclick="generateFile()">Pseudocode -> Arduino C</button>
+    <button id="saveButton" onclick="saveCode()">Save to File</button>
     <input type="file" id="loadInput" style="display: none;" onchange="loadBlocksFile(event)">
     
   </div>
@@ -73,23 +72,27 @@
 
     function generateFile() {
       var code = document.getElementById('codeDiv').innerText;
-      document.getElementById('outputDiv').innerText = `import turtle as t\nimport time\n\n${code}\nt.mainloop()\n`;
+      code = code.replace(/\n/g, '\n    ')
+      document.getElementById('outputDiv').innerText = `#include "motor_control.h"\nint main(){\n    uint8_t CAR_SPEED = 100;\n    ${code}\n}`;
     }
 
     function saveCode() {
       document.getElementById('saveButton').addEventListener('click', function() {
-      var contentToSave = document.getElementById('outputDiv').innerText;
-      var blob = new Blob([contentToSave], { type: 'text/x-python' });
-      var fileName = 'turtleScript.py';
+        var contentToSave = document.getElementById('outputDiv').innerText;
+        var blob = new Blob([contentToSave], { type: 'text/plain' });
+        var fileName = 'RCCarMain.ino';
 
-      // Create a download link
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = fileName;
+        // Create a download link
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
 
-      // Trigger a click event on the link to start the download
-      a.click();
-});
+        // Trigger a click event on the link to start the download
+        document.body.appendChild(link);
+        link.click();
+
+        document.body.removeChild(link);
+      });
     }
   </script>
 </body>

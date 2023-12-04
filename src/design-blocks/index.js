@@ -1,7 +1,6 @@
 'use strict';
 
 let workspace = null;
-
 Blockly.Blocks['run'] = {
   init: function() {
     this.appendDummyInput()
@@ -46,11 +45,11 @@ Blockly.Blocks['speed'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("set speed (1-10): ")
-        .appendField(new Blockly.FieldNumber(5, 1, 10), "SPEED") // Default value of 5, minimum value of 1, maximum of 10
+        .appendField(new Blockly.FieldNumber(100, 1, 255), "SPEED") // Default value of 5, minimum value of 1, maximum of 10
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(320);
-    this.setTooltip("Sets the speed of the car (turtle).");
+    this.setTooltip("Sets the speed of the car.");
   }
 };
 
@@ -60,8 +59,8 @@ Blockly.Blocks['turn'] = {
     this.appendDummyInput()
         .appendField("turn car")
         .appendField(new Blockly.FieldDropdown([["left","LEFT"], ["right","RIGHT"]]), "DIRECTION")
-        .appendField(new Blockly.FieldNumber(), "DEGREES")
-        .appendField("Degrees");
+        .appendField(new Blockly.FieldNumber(), "DURATION")
+        .appendField("seconds");
     this.setPreviousStatement(true, ["move", "turn"]);
     this.setNextStatement(true, ["move", "turn"]);
     this.setColour(290);
@@ -82,68 +81,52 @@ Blockly.Blocks['pause'] = {
   }
 };
 
-Blockly.Blocks['stop'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("stop car");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(0);
-    this.setTooltip("Stops the car.");
-  }
-};
 
 Blockly.JavaScript.forBlock['run'] = function(block) {
   var iterations = block.getFieldValue('ITERATIONS');
   var body = Blockly.JavaScript.statementToCode(block, 'COMMAND');
 
   var code = '' 
-  code += 'for i in range(' + iterations + '):\n';
+  code += `for (int i = 0; i < ${iterations}; ++i) {\n`;
   code += body.split('\n').map(function(line) {
     return '    ' + line;
-  }).join('\n') + '\n';
-
+  }).join('\n') + '\n}\n';
   
   return code
 }
 Blockly.JavaScript.forBlock['move_forward'] = function(block) {
   var time = block.getFieldValue('TIME');
-  var code = 't.forward(' + time + ')\n';
+  var code = `moveForward(CAR_SPEED, ${time});\n`;
   return code;
 }
 
 Blockly.JavaScript.forBlock['move_backward'] = function(block) {
   var time = block.getFieldValue('TIME');
-  var code = 't.backward(' + time+ ')\n';
+  var code = `moveBackward(CAR_SPEED, time);\n`;
   return code;
 }
 
 Blockly.JavaScript.forBlock['speed'] = function(block) {
   var speed = block.getFieldValue('SPEED');
-  var code = 't.speed(' + speed + ')\n';
+  var code = `CAR_SPEED = ${speed};\n`;
   return code;
 }
 
 Blockly.JavaScript.forBlock['turn'] = function(block) {
   var direction = block.getFieldValue('DIRECTION');
-  var degrees = block.getFieldValue('DEGREES')
+  var duration = block.getFieldValue('DURATION')
   var code;
   if (direction == 'LEFT') {
-    code = 't.left(' + degrees + ')\n';
+    code = `turnLeft(CAR_SPEED, ${duration});\n`;
   } else {
-    code = 't.right(' + degrees + ')\n';
+    code = `turnRight(CAR_SPEED, ${duration});\n`;
   }
-  return code;
-}
-
-Blockly.JavaScript.forBlock['stop'] = function(block) {
-  var code = 't.stop()\n';
   return code;
 }
 
 Blockly.JavaScript.forBlock['pause'] = function(block) {
   var duration = block.getFieldValue('DURATION');
-  var code = 'time.sleep(' + duration + ')\n';
+  var code = `stopMoving(${duration});\n`;
   return code;
 };
 
