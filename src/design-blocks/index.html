@@ -73,7 +73,7 @@
     function generateFile() {
       var code = document.getElementById('codeDiv').innerText;
       code = code.replace(/\n/g, '\n    ')
-      document.getElementById('outputDiv').innerText = `#include "motor_control.h"\nint carPath(){\n    uint8_t CAR_SPEED = 100;\n    ${code}\n}`;
+      document.getElementById('outputDiv').innerText = `#include "motor_control.h"\nvoid setup(){\n    setupMotors();\n}\nvoid loop(){\n    uint8_t CAR_SPEED = 100\n    delay(2000);\n    ${code}\n}`;
     }
 
     function saveCode() {
