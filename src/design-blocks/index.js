@@ -102,7 +102,7 @@ Blockly.JavaScript.forBlock['move_forward'] = function(block) {
 
 Blockly.JavaScript.forBlock['move_backward'] = function(block) {
   var time = block.getFieldValue('TIME');
-  var code = `moveBackward(CAR_SPEED, time);\n`;
+  var code = `moveBackward(CAR_SPEED, ${time});\n`;
   return code;
 }
 
