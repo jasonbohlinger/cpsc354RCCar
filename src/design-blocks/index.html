@@ -80,7 +80,7 @@
       document.getElementById('saveButton').addEventListener('click', function() {
         var contentToSave = document.getElementById('outputDiv').innerText;
         var blob = new Blob([contentToSave], { type: 'text/plain' });
-        var fileName = 'RCCarMain.h';
+        var fileName = 'rccar.ino';
 
         // Create a download link
         var link = document.createElement('a');
