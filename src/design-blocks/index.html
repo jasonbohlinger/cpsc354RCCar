@@ -73,14 +73,14 @@
     function generateFile() {
       var code = document.getElementById('codeDiv').innerText;
       code = code.replace(/\n/g, '\n    ')
-      document.getElementById('outputDiv').innerText = `#include "motor_control.h"\nint main(){\n    uint8_t CAR_SPEED = 100;\n    ${code}\n}`;
+      document.getElementById('outputDiv').innerText = `#include "motor_control.h"\nint carPath(){\n    uint8_t CAR_SPEED = 100;\n    ${code}\n}`;
     }
 
     function saveCode() {
       document.getElementById('saveButton').addEventListener('click', function() {
         var contentToSave = document.getElementById('outputDiv').innerText;
         var blob = new Blob([contentToSave], { type: 'text/plain' });
-        var fileName = 'RCCarMain.ino';
+        var fileName = 'RCCarMain.h';
 
         // Create a download link
         var link = document.createElement('a');
