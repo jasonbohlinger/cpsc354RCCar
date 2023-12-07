@@ -130,7 +130,6 @@ Blockly.JavaScript.forBlock['pause'] = function(block) {
   return code;
 };
 
-
 function start() {
   // Create main workspace.
   workspace = Blockly.inject('blocklyDiv',
