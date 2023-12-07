@@ -1,6 +1,8 @@
 # cpsc354RCCar
 
 ![Car Image](videos/carImage.jpg)
+<img src="https://github.com/jasonbohlinger/cpsc354RCCar/blob/main/videos/carImage.jpg"/>
+
 
 ## Group Members: Jason Bohlinger | Ori Garibi | Liam Propst | Miles Rovenger
 
