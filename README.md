@@ -14,6 +14,7 @@ By using the Blockly API and generating C code as a middle-man step in controlli
 
 [https://jasonbohlinger.github.io/cpsc354RCCar/src/design-blocks/](https://jasonbohlinger.github.io/cpsc354RCCar/src/design-blocks/)
 
+![Car Image](/videos/carImage.png)
 ## Running / Testing
 
 1. Open index.html in a browser
@@ -21,8 +22,6 @@ By using the Blockly API and generating C code as a middle-man step in controlli
 3. Select 'Generate Pseudocode'
 4. Select 'Pseudocode -> Arduino C'
 5. Select 'Save to File' to start downloading RCCarMain.ino, the Arduino file that holds the main function.
-
-## TODO: INSTRUCTIONS FOR STARTING RC CAR
 
 ## Arduino Car
 
